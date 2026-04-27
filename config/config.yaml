@@ -401,25 +401,20 @@ storage:
 # ===============================================================
 ai:
   # LiteLLM 模型格式: provider/model_name
-  # 使用讯飞星火 Coding Plan API
-  # 注意：使用 openai/ 前缀强制使用 OpenAI 协议格式
+  # 使用 OpenRouter API
+  # OpenRouter 提供多种 AI 模型，使用 openrouter/ 前缀
 
-  model: "openai/astron-code-latest"
+  model: "openrouter/anthropic/claude-3.5-sonnet"
 
-  api_key: "67f3acdf69c12039e2ae68bd7685cdc0:YjMzZjJjOWM0YTcyZWFmMmVmYjY0YjYx"  # 讯飞星火 API Key
+  api_key: "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"
 
-  api_base: "https://maas-coding-api.cn-huabei-1.xf-yun.com/v2"  # 讯飞星火 OpenAI 兼容接口
-                                    # 讯飞星火提供了 OpenAI 兼容接口，可以直接使用
-                                    # 文档：https://www.xfyun.cn/doc/spark/CodingPlan.html
-
+  api_base: "https://openrouter.ai/api/v1"
 
   timeout: 120                      # 请求超时（秒）
 
   temperature: 1.0                  # 采样温度 (0.0-2.0)
-                                    # 注意：部分模型(如 gpt-5)可能要求必须为 1.0，否则会报错
 
   max_tokens: 5000                  # 最大生成 token 数
-                                    # 注意：如果 API 不支持此参数(报 HTTP 400)，请设为 0 以禁用发送
   # 高级选项
   num_retries: 1                    # 失败重试次数
   fallback_models: []               # 备用模型列表（可选）

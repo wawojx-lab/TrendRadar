@@ -426,6 +426,16 @@ custom:
       report_mode: "current"       # 当前在榜新闻
       # once 继承 default（analyze: true, push: true）→ 只推/分析一次
 
+    afternoon_push:
+      name: "下午推送"
+      start: "15:00"
+      end: "16:00"                 # 下午3点到4点之间触发（临时测试）
+      analyze: true                # 做 AI 分析
+      ai_mode: "current"           # 分析当前榜单
+      push: true                   # 推送消息
+      report_mode: "current"       # 当前在榜新闻
+      # once 继承 default（analyze: true, push: true）→ 只推/分析一次
+
     evening_push:
       name: "晚间推送"
       start: "20:00"
@@ -441,7 +451,7 @@ custom:
   # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   day_plans:
     all_day:
-      periods: ["morning_push", "evening_push"]
+      periods: ["morning_push", "afternoon_push", "evening_push"]
 
   # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   # 周映射（每天使用相同的计划）
