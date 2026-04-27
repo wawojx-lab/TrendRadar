@@ -315,6 +315,13 @@ class NewsAnalyzer:
                 cfg["FEISHU_WEBHOOK_URL"],
                 cfg["DINGTALK_WEBHOOK_URL"],
                 cfg["WEWORK_WEBHOOK_URL"],
+                # 企业微信应用（直接推送到个人微信）
+                (
+                    cfg.get("WEWORK_CORP_ID")
+                    and cfg.get("WEWORK_AGENT_ID")
+                    and cfg.get("WEWORK_AGENT_SECRET")
+                    and cfg.get("WEWORK_USER_ID")
+                ),
                 (cfg["TELEGRAM_BOT_TOKEN"] and cfg["TELEGRAM_CHAT_ID"]),
                 (
                     cfg["EMAIL_FROM"]
