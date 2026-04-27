@@ -418,9 +418,15 @@ def _load_webhook_config(config_data: Dict) -> Dict:
         "FEISHU_WEBHOOK_URL": _get_env_str("FEISHU_WEBHOOK_URL") or feishu.get("webhook_url", ""),
         # 钉钉
         "DINGTALK_WEBHOOK_URL": _get_env_str("DINGTALK_WEBHOOK_URL") or dingtalk.get("webhook_url", ""),
-        # 企业微信
+        # 企业微信群机器人
         "WEWORK_WEBHOOK_URL": _get_env_str("WEWORK_WEBHOOK_URL") or wework.get("webhook_url", ""),
         "WEWORK_MSG_TYPE": _get_env_str("WEWORK_MSG_TYPE") or wework.get("msg_type", "markdown"),
+        # 企业微信应用（直接推送到个人微信）
+        "WEWORK_CORP_ID": _get_env_str("WEWORK_CORP_ID") or wework_app.get("corp_id", ""),
+        "WEWORK_AGENT_ID": _get_env_str("WEWORK_AGENT_ID") or wework_app.get("agent_id", ""),
+        "WEWORK_AGENT_SECRET": _get_env_str("WEWORK_AGENT_SECRET") or wework_app.get("agent_secret", ""),
+        "WEWORK_USER_ID": _get_env_str("WEWORK_USER_ID") or wework_app.get("user_id", ""),
+        "WEWORK_APP_MSG_TYPE": _get_env_str("WEWORK_APP_MSG_TYPE") or wework_app.get("msg_type", "text"),
         # Telegram
         "TELEGRAM_BOT_TOKEN": _get_env_str("TELEGRAM_BOT_TOKEN") or telegram.get("bot_token", ""),
         "TELEGRAM_CHAT_ID": _get_env_str("TELEGRAM_CHAT_ID") or telegram.get("chat_id", ""),
@@ -465,7 +471,17 @@ def _print_notification_sources(config: Dict) -> None:
         accounts = parse_multi_account_config(config["WEWORK_WEBHOOK_URL"])
         count = min(len(accounts), max_accounts)
         source = "环境变量" if os.environ.get("WEWORK_WEBHOOK_URL") else "配置文件"
-        notification_sources.append(f"企业微信({source}, {count}个账号)")
+        notification_sources.append(f"企业微信群机器人({source}, {count}个账号)")
+
+    # 企业微信应用
+    if (config.get("WEWORK_CORP_ID") and
+        config.get("WEWORK_AGENT_ID") and
+        config.get("WEWORK_AGENT_SECRET") and
+        config.get("WEWORK_USER_ID")):
+        users = parse_multi_account_config(config["WEWORK_USER_ID"])
+        count = min(len(users), max_accounts)
+        source = "环境变量" if os.environ.get("WEWORK_CORP_ID") else "配置文件"
+        notification_sources.append(f"企业微信应用({source}, {count}个用户)")
 
     if config["TELEGRAM_BOT_TOKEN"] and config["TELEGRAM_CHAT_ID"]:
         tokens = parse_multi_account_config(config["TELEGRAM_BOT_TOKEN"])
