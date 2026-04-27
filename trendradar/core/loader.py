@@ -406,6 +406,7 @@ def _load_webhook_config(config_data: Dict) -> Dict:
     feishu = channels.get("feishu", {})
     dingtalk = channels.get("dingtalk", {})
     wework = channels.get("wework", {})
+    wework_app = channels.get("wework_app", {})  # 企业微信应用配置
     telegram = channels.get("telegram", {})
     email = channels.get("email", {})
     ntfy = channels.get("ntfy", {})
